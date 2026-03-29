@@ -1,0 +1,120 @@
+[
+  {
+    "slug": "print-cost-calculator",
+    "title": "3Dプリント コスト計算機",
+    "description": "フィラメント費用・電気代・総コストを一発計算。1gあたりのコストも算出します。",
+    "category": "コスト計算",
+    "icon": "Calculator",
+    "inputs": [
+      { "id": "filamentType", "label": "フィラメント種類", "type": "select", "options": ["PLA", "ABS", "PETG", "TPU", "ナイロン", "PC", "ASA"], "default": "PLA" },
+      { "id": "usage", "label": "フィラメント使用量", "type": "number", "unit": "g", "default": 50 },
+      { "id": "filamentPrice", "label": "フィラメント価格", "type": "number", "unit": "円/kg", "default": 2500 },
+      { "id": "power", "label": "プリンター消費電力", "type": "number", "unit": "W", "default": 150 },
+      { "id": "printTime", "label": "プリント時間", "type": "number", "unit": "時間", "default": 3 },
+      { "id": "electricityRate", "label": "電気料金単価", "type": "number", "unit": "円/kWh", "default": 31 }
+    ],
+    "outputs": [
+      { "id": "filamentCost", "label": "フィラメント費用", "unit": "円" },
+      { "id": "electricityCost", "label": "電気代", "unit": "円" },
+      { "id": "totalCost", "label": "総コスト", "unit": "円" },
+      { "id": "costPerGram", "label": "1gあたりコスト", "unit": "円/g" }
+    ],
+    "relatedProducts": [
+      { "asin": "B08T9P5H7G", "title": "eSUN PLA+ フィラメント 1kg オレンジ" },
+      { "asin": "B07VR763W3", "title": "ELEGOO PLA フィラメント 1.75mm 1kg" },
+      { "asin": "B07JHK5BTB", "title": "Polymaker PETG フィラメント 1.75mm" },
+      { "asin": "B08C9VLLHK", "title": "NinjaFlex TPU フィラメント 1.75mm" }
+    ],
+    "faq": [
+      { "q": "PLAフィラメントの相場はどのくらいですか？", "a": "一般的なPLAフィラメント（1kg）は1,500〜3,500円程度です。品質やブランドによって異なります。" },
+      { "q": "3Dプリンターの電気代はどのくらいかかりますか？", "a": "一般的な家庭用3Dプリンターは100〜300Wを消費します。1時間あたり3〜9円程度（電気料金31円/kWhの場合）です。" },
+      { "q": "フィラメントコストを節約するには？", "a": "インフィル率を下げる、ネスティングで複数パーツを同時印刷する、まとめ買いでkg単価を下げるなどが効果的です。" }
+    ]
+  },
+  {
+    "slug": "filament-comparison",
+    "title": "フィラメント材料比較ツール",
+    "description": "用途・目的からおすすめフィラメントをランキング表示。PLA/ABS/PETG/TPU/ナイロン/PC/ASAの7素材をレーダーチャートで比較。",
+    "category": "材料比較",
+    "icon": "Compare",
+    "inputs": [
+      { "id": "purpose_strength", "label": "強度重視", "type": "checkbox", "default": false },
+      { "id": "purpose_flexible", "label": "柔軟性・弾力が欲しい", "type": "checkbox", "default": false },
+      { "id": "purpose_heat", "label": "耐熱性が必要", "type": "checkbox", "default": false },
+      { "id": "purpose_beauty", "label": "美しい仕上がり重視", "type": "checkbox", "default": false },
+      { "id": "purpose_cost", "label": "コスト重視", "type": "checkbox", "default": false }
+    ],
+    "outputs": [],
+    "relatedProducts": [
+      { "asin": "B08T9P5H7G", "title": "eSUN PLA+ フィラメント 1kg" },
+      { "asin": "B07VR763W3", "title": "ELEGOO ABS フィラメント 1.75mm 1kg" },
+      { "asin": "B07JHK5BTB", "title": "Polymaker PETG フィラメント 1.75mm" },
+      { "asin": "B08C9VLLHK", "title": "NinjaFlex TPU フィラメント 1.75mm" },
+      { "asin": "B07PGZNM34", "title": "Polymaker ナイロン フィラメント 1.75mm" }
+    ],
+    "faq": [
+      { "q": "PLAとABSはどちらが良いですか？", "a": "初心者にはPLAがおすすめです。反りが少なく扱いやすい。ABSは耐熱性・強度が高いですが印刷が難しく、有害なガスが発生します。" },
+      { "q": "PETGはどんな用途に向いていますか？", "a": "PETGはPLAの扱いやすさとABSの強度・耐熱性を兼ね備えた素材です。食品容器や機械部品など幅広い用途に使えます。" },
+      { "q": "TPUはどんな用途に向いていますか？", "a": "TPUはゴムのような弾力があり、スマホケースやガスケット、衝撃吸収パーツなど柔軟性が必要な用途に最適です。" }
+    ]
+  },
+  {
+    "slug": "print-time-estimator",
+    "title": "プリント時間・フィラメント使用量推定ツール",
+    "description": "オブジェクトサイズとプリント設定から、プリント時間・フィラメント使用量・コストを推定します。",
+    "category": "時間・量推定",
+    "icon": "Timer",
+    "inputs": [
+      { "id": "width", "label": "幅", "type": "number", "unit": "mm", "default": 50 },
+      { "id": "depth", "label": "奥行き", "type": "number", "unit": "mm", "default": 50 },
+      { "id": "height", "label": "高さ", "type": "number", "unit": "mm", "default": 50 },
+      { "id": "infill", "label": "インフィル率", "type": "number", "unit": "%", "default": 20 },
+      { "id": "layerHeight", "label": "レイヤー高さ", "type": "number", "unit": "mm", "default": 0.2 },
+      { "id": "printSpeed", "label": "プリント速度", "type": "number", "unit": "mm/s", "default": 60 },
+      { "id": "filamentPrice", "label": "フィラメント価格", "type": "number", "unit": "円/kg", "default": 2500 }
+    ],
+    "outputs": [
+      { "id": "estimatedTime", "label": "推定プリント時間", "unit": "" },
+      { "id": "filamentUsage", "label": "推定フィラメント使用量", "unit": "g" },
+      { "id": "estimatedCost", "label": "推定材料コスト", "unit": "円" }
+    ],
+    "relatedProducts": [
+      { "asin": "B09V3KPXVH", "title": "Bambu Lab P1S 3Dプリンター" },
+      { "asin": "B07G3ZBJFH", "title": "Creality Ender-3 V3 SE 3Dプリンター" },
+      { "asin": "B09GYZPM22", "title": "3Dプリンター用 真鍮ノズル 0.4mm 10個セット" }
+    ],
+    "faq": [
+      { "q": "推定時間の精度はどのくらいですか？", "a": "このツールは簡易推定式を使用しています。実際のプリント時間はスライサーソフトの計算値と異なる場合があります。目安としてお使いください。" },
+      { "q": "インフィル率を下げるとどうなりますか？", "a": "インフィル率を下げると内部構造が疎になり、プリント時間とフィラメント使用量が減少します。ただし強度も低下します。一般的な小物なら20〜30%で十分です。" },
+      { "q": "レイヤー高さを変えるとどう変わりますか？", "a": "レイヤー高さを大きくするとプリント時間が短縮されますが、表面の積層跡が目立ちます。0.1mm=高品質・低速、0.3mm=低品質・高速が目安です。" }
+    ]
+  },
+  {
+    "slug": "electricity-simulator",
+    "title": "3Dプリンター電気代シミュレーター",
+    "description": "月間稼働時間と消費電力から電気代を計算。Ender-3・Bambu Lab等の機種別プリセットあり。",
+    "category": "電気代計算",
+    "icon": "Electricity",
+    "inputs": [
+      { "id": "printerPreset", "label": "機種プリセット", "type": "select", "options": ["カスタム", "Creality Ender-3（150W）", "Creality Ender-3 S1（180W）", "Bambu Lab A1（175W）", "Bambu Lab P1S（350W）", "Bambu Lab X1C（350W）", "Prusa MK4（120W）", "Anycubic Kobra 2（240W）"], "default": "カスタム" },
+      { "id": "power", "label": "消費電力", "type": "number", "unit": "W", "default": 150 },
+      { "id": "monthlyHours", "label": "月間稼働時間", "type": "number", "unit": "時間/月", "default": 30 },
+      { "id": "electricityRate", "label": "電気料金単価", "type": "number", "unit": "円/kWh", "default": 31 }
+    ],
+    "outputs": [
+      { "id": "monthlyElectric", "label": "月間電気代", "unit": "円" },
+      { "id": "yearlyElectric", "label": "年間電気代", "unit": "円" },
+      { "id": "costPerHour", "label": "1時間あたり電気代", "unit": "円/h" }
+    ],
+    "relatedProducts": [
+      { "asin": "B09Y4YLXXT", "title": "TP-Link スマートプラグ 電力モニタリング機能付き" },
+      { "asin": "B07BHHP2BJ", "title": "Creality Ender-3 Pro 3Dプリンター" },
+      { "asin": "B09V3KPXVH", "title": "Bambu Lab P1S 3Dプリンター" }
+    ],
+    "faq": [
+      { "q": "3Dプリンターの電気代は高いですか？", "a": "一般的な家庭用3Dプリンター（150W）を月30時間使用した場合、月約140円（31円/kWh）です。電子レンジと比べると非常に低消費電力です。" },
+      { "q": "Bambu LabとEnder-3では電気代はどのくらい違いますか？", "a": "Bambu Lab P1S（350W）はEnder-3（150W）の約2.3倍の電力消費です。ただしBambu Labは印刷速度が速いため、同じ造形物を作る際の実際のコスト差は小さい場合があります。" },
+      { "q": "スマートプラグで実際の消費電力を測るには？", "a": "TP-LinkのKasaスリムなどのスマートプラグを使うと、実際の消費電力をリアルタイムで計測できます。印刷中と待機中の消費電力の差もわかります。" }
+    ]
+  }
+]
