@@ -5,7 +5,7 @@ export const siteConfig = {
   url: "https://3d-print-tools.kuras-plus.com",
   theme: "orange" as const,
   amazonTag: "kurasplus-22",
-  ga4Id: "G-XXXXXXXXXX",
+  ga4Id: "G-7XEX8K92PV",
   ogImage: "/images/og-default.png",
   twitterHandle: "",
   nav: [
