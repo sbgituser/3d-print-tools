@@ -6,7 +6,7 @@ export const siteConfig = {
   theme: "orange" as const,
   amazonTag: "kurasplus-22",
   ga4Id: "G-7XEX8K92PV",
-  ogImage: "/images/og-default.png",
+  ogImage: "/ogp/default-ogp.png",
   twitterHandle: "",
   nav: [
     { label: "ツール", href: "/tools" },

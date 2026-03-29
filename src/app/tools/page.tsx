@@ -1,4 +1,5 @@
 import ToolCard from "@/components/ToolCard";
+import Breadcrumb from "@/components/Breadcrumb";
 import { buildMetadata } from "@/lib/seo";
 import toolsData from "@/data/tools.json";
 
@@ -11,6 +12,7 @@ export const metadata = buildMetadata({
 export default function ToolsPage() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
+      <Breadcrumb items={[{ name: "ツール", href: "/tools" }]} />
       <h1 className="text-2xl md:text-3xl font-bold mb-2">ツール一覧</h1>
       <p className="text-gray-500 mb-8">3Dプリンティングに役立つ無料計算ツールを揃えています。</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

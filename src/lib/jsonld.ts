@@ -84,3 +84,24 @@ export function breadcrumbSchema(items: { name: string; url: string }[]) {
     })),
   };
 }
+
+export function webApplicationSchema(tool: {
+  title: string;
+  description: string;
+  slug: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: tool.title,
+    description: tool.description,
+    url: `${siteConfig.url}/tools/${tool.slug}`,
+    applicationCategory: "UtilityApplication",
+    operatingSystem: "Any",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "JPY",
+    },
+  };
+}

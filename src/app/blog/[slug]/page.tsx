@@ -17,7 +17,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const article = articlesData.find((a) => a.slug === slug);
   if (!article) return {};
-  return buildMetadata({ title: article.title, description: article.description, path: `/blog/${slug}` });
+  return buildMetadata({
+    title: article.title,
+    description: article.description,
+    path: `/blog/${slug}`,
+    ogImage: `/ogp/blog/${slug}.png`,
+  });
 }
 
 export default async function BlogArticlePage({ params }: { params: Promise<{ slug: string }> }) {
