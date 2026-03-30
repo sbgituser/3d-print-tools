@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Breadcrumb from "@/components/Breadcrumb";
 import ToolCard from "@/components/ToolCard";
 import JsonLd from "@/components/JsonLd";
-import { articleSchema } from "@/lib/jsonld";
+import { articleSchema, faqSchema } from "@/lib/jsonld";
 import { buildMetadata } from "@/lib/seo";
 import { siteConfig } from "@/data/site-config";
 import articlesData from "@/data/articles.json";
@@ -31,6 +31,7 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
   if (!article) notFound();
 
   const relatedTools = toolsData.filter((t) => article.relatedTools?.includes(t.slug));
+  const articleFaq = (article as { faq?: { q: string; a: string }[] }).faq;
   const schema = articleSchema({
     title: article.title,
     description: article.description,
@@ -39,10 +40,32 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
     url: `${siteConfig.url}/blog/${slug}`,
   });
 
+  // Parse content lines, grouping table rows into blocks
+  type ContentBlock =
+    | { type: "line"; content: string }
+    | { type: "table"; rows: string[] };
+  const contentBlocks: ContentBlock[] = [];
+  const lines = article.content.split("\n");
+  let li = 0;
+  while (li < lines.length) {
+    if (lines[li].startsWith("|")) {
+      const tableRows: string[] = [];
+      while (li < lines.length && lines[li].startsWith("|")) {
+        tableRows.push(lines[li]);
+        li++;
+      }
+      contentBlocks.push({ type: "table", rows: tableRows });
+    } else {
+      contentBlocks.push({ type: "line", content: lines[li] });
+      li++;
+    }
+  }
+
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
       <Breadcrumb items={[{ name: "ブログ", href: "/blog" }, { name: article.title, href: `/blog/${article.slug}` }]} />
       <JsonLd data={schema} />
+      {articleFaq && articleFaq.length > 0 && <JsonLd data={faqSchema(articleFaq)} />}
 
       <span className="text-sm text-[var(--color-primary)] font-medium mt-4 block">{article.category}</span>
       <h1 className="text-2xl md:text-3xl font-bold mt-2 mb-2">{article.title}</h1>
@@ -51,7 +74,31 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
       </time>
 
       <div className="prose prose-gray max-w-none">
-        {article.content.split("\n").map((para, i) => {
+        {contentBlocks.map((block, i) => {
+          if (block.type === "table") {
+            const dataRows = block.rows.filter((r) => !r.match(/^\|[-:\s|]+\|$/));
+            return (
+              <div key={i} className="overflow-x-auto mb-6">
+                <table className="min-w-full border-collapse text-sm">
+                  <tbody>
+                    {dataRows.map((row, ri) => {
+                      const cells = row.split("|").filter((c) => c.trim() !== "").map((c) => c.trim());
+                      return (
+                        <tr key={ri} className={ri === 0 ? "bg-[var(--color-bg)] font-semibold" : ri % 2 === 1 ? "bg-white" : "bg-gray-50"}>
+                          {cells.map((cell, ci) => (
+                            ri === 0
+                              ? <th key={ci} className="border border-gray-200 px-3 py-2 text-left whitespace-nowrap">{cell}</th>
+                              : <td key={ci} className="border border-gray-200 px-3 py-2">{cell}</td>
+                          ))}
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            );
+          }
+          const para = block.content;
           if (para.startsWith("## ")) {
             return <h2 key={i} className="text-xl font-bold mt-8 mb-3">{para.slice(3)}</h2>;
           }
@@ -65,7 +112,6 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
             return <li key={i} className="ml-4 text-gray-700">{para}</li>;
           }
           if (para.trim() === "") return null;
-          // Bold text rendering
           const rendered = para.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
           return <p key={i} className="text-gray-700 leading-relaxed mb-4" dangerouslySetInnerHTML={{ __html: rendered }} />;
         })}
